@@ -8,6 +8,8 @@ create table players(
 	matchesWon int
 )
 
+select * from players;
+
 -- alter table players add matchesWon int;
 
 --EXEC sp_rename 'players.loginTime', 'lastSeen', 'COLUMN';
@@ -23,3 +25,13 @@ create table matches(
 	isActive bit,
 	winner nvarchar(50),
 )
+
+select * from matches;
+
+create table queue(
+	qId int identity(1, 1) primary key,
+	player nvarchar(50) not null,
+	grid varchar(100) not null
+)
+
+select * from queue;
