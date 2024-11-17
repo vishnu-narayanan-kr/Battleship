@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.demo.Utility;
 import com.example.demo.Models.Player;
 import com.example.demo.Repositories.PlayerRepository;
 
@@ -23,19 +24,15 @@ public class Players {
 	public ResponseEntity<Player> getPlayerDetails(@RequestParam String username) {
 		Player player;
 		String message;
-		
-		String pattern = "yyyy-MM-dd HH:mm:ssZ";
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-
-		String date = simpleDateFormat.format(new Date());
+		String timeStamp = Utility.getTimeStamp();
 		
 		try {
 			player = playerRepository.findById(username).get();
 			message = "Exisiting player found";
-			player.setLastSeen(date);
+			player.setLastSeen(timeStamp);
 			playerRepository.save(player);
 		} catch (NoSuchElementException ex) {
-			player = new Player(username, date, "english");
+			player = new Player(username, timeStamp, "english");
 			message = "Added as a new player";
 			playerRepository.save(player);
 		} catch (Exception ex) {

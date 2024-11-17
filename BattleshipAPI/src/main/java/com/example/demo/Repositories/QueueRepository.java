@@ -2,8 +2,8 @@ package com.example.demo.Repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.demo.Models.Queue;
+import com.example.demo.Models.MatchQueue;
 
-public interface QueueRepository extends JpaRepository<Queue, Integer> {
+public interface QueueRepository extends JpaRepository<MatchQueue, String> {
 
 }
