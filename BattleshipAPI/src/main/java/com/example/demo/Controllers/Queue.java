@@ -25,6 +25,8 @@ public class Queue {
 		String username = queue.getUsername();
 		String grid = queue.getGrid();
 		
+		// try matchmaking first
+		
 		try {
 			queue = queueRepository.findById(username).get();
 			message = "You are already in queue, please wait";
@@ -37,8 +39,6 @@ public class Queue {
 			statusCode = HttpStatus.SERVICE_UNAVAILABLE;
 			message = "Couldn't enter queue. " + ex.getMessage();
 		}
-		
-		// do matchmaking
 		
 		return ResponseEntity
 				.status(statusCode)

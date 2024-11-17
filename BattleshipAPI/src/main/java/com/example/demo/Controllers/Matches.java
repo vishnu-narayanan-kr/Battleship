@@ -18,30 +18,44 @@ public class Matches {
     
     @GetMapping("/getMatch")
     public ResponseEntity<Match> getMatchDetails(@RequestParam int mid) {
+    	Match match;
+    	String message;
+    	HttpStatus statusCode = HttpStatus.OK;
+    	
     	try {
-            Match match = matchRepository.findById(mid).get();
-            
-        	return new ResponseEntity<>(match, HttpStatus.OK);
+            match = matchRepository.findById(mid).get();
+            message = "Match details found";
     	} catch(Exception ex) {
-    		return ResponseEntity
-    				.status(HttpStatus.NOT_FOUND)
-    				.header("error", "Couldn't retrieve match data. More Details: " + ex.getMessage())
-    				.body(null);
+    		match = null;
+    		statusCode = HttpStatus.NOT_FOUND;
+    		message = "Couldn't retrieve match data. More Details: " + ex.getMessage();
     	}
+    	
+    	return ResponseEntity
+				.status(statusCode)
+				.header("message", message)
+				.body(match);
     }
     
     @GetMapping("/getActiveMatchByPlayer")
     public ResponseEntity<Match> getActiveMatchByPlayer(@RequestParam String username) {
+    	Match match;
+    	String message;
+    	HttpStatus statusCode = HttpStatus.OK;
+    	
     	try {
-            Match match = matchRepository.findByIsActiveTrueAndP1OrP2(username, username).get();
-            
-        	return new ResponseEntity<>(match, HttpStatus.OK);
+            match = matchRepository.findByIsActiveTrueAndP1OrP2(username, username).get();
+            message = "Match details found";
     	} catch(Exception ex) {
-    		return ResponseEntity
-    				.status(HttpStatus.NOT_FOUND)
-    				.header("error", "Couldn't retrieve match data. More Details: " + ex.getMessage())
-    				.body(null);
+    		match = null;
+    		statusCode = HttpStatus.NOT_FOUND;
+    		message = "Couldn't retrieve match data. More Details: " + ex.getMessage();
     	}
+    	
+    	return ResponseEntity
+				.status(statusCode)
+				.header("message", message)
+				.body(match);
     }
     
 

@@ -24,11 +24,12 @@ public class Players {
 	public ResponseEntity<Player> getPlayerDetails(@RequestParam String username) {
 		Player player;
 		String message;
+		HttpStatus statusCode = HttpStatus.OK;
 		String timeStamp = Utility.getTimeStamp();
 		
 		try {
 			player = playerRepository.findById(username).get();
-			message = "Exisiting player found";
+			message = "Existing player found";
 			player.setLastSeen(timeStamp);
 			playerRepository.save(player);
 		} catch (NoSuchElementException ex) {
@@ -36,9 +37,11 @@ public class Players {
 			message = "Added as a new player";
 			playerRepository.save(player);
 		} catch (Exception ex) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).header("error", ex.getMessage()).body(null);			
+			player = null;
+			statusCode = HttpStatus.SERVICE_UNAVAILABLE;
+			message = "Couldn't get player details. " + ex.getMessage();		
 		}
 		
-		return ResponseEntity.status(HttpStatus.OK).header("succes", message).body(player);
+		return ResponseEntity.status(statusCode).header("message", message).body(player);
 	}
 }
