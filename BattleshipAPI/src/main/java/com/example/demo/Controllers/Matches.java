@@ -1,34 +1,47 @@
 package com.example.demo.Controllers;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.Models.Match;
-import com.example.demo.Repositories.MatchesRepository;
+import com.example.demo.Repositories.MatchRepository;
 
 @RestController
 @RequestMapping("matches")
 public class Matches {
     @Autowired
-    private MatchesRepository matchRepository;
+    private MatchRepository matchRepository;
     
     @GetMapping("/getMatch")
-    public ResponseEntity<Optional<Match>> getMatchDetails(@RequestParam int mId) {
-        Optional<Match> match = matchRepository.findById(mId);
-        
-        if(match.isPresent()) {
+    public ResponseEntity<Match> getMatchDetails(@RequestParam int mid) {
+    	try {
+            Match match = matchRepository.findById(mid).get();
+            
         	return new ResponseEntity<>(match, HttpStatus.OK);
-        }
-        
-        return new ResponseEntity<>(match, HttpStatus.NOT_FOUND);
+    	} catch(Exception ex) {
+    		return ResponseEntity
+    				.status(HttpStatus.NOT_FOUND)
+    				.header("error", "Couldn't retrieve match data. More Details: " + ex.getMessage())
+    				.body(null);
+    	}
+    }
+    
+    @GetMapping("/getActiveMatchByPlayer")
+    public ResponseEntity<Match> getActiveMatchByPlayer(@RequestParam String username) {
+    	try {
+            Match match = matchRepository.findByIsActiveTrueAndP1OrP2(username, username).get();
+            
+        	return new ResponseEntity<>(match, HttpStatus.OK);
+    	} catch(Exception ex) {
+    		return ResponseEntity
+    				.status(HttpStatus.NOT_FOUND)
+    				.header("error", "Couldn't retrieve match data. More Details: " + ex.getMessage())
+    				.body(null);
+    	}
     }
     
 
