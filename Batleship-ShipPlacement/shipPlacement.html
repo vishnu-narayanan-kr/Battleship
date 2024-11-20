@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battleship Ship Placement</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/shipPlacement.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="logo">BATTLESHIP</h1>
+    
+        <div class="boards">
+            <!-- MY FLEET GRID -->
+            <div class="board">
+                <h2 class="blue">MY FLEET</h2>
+                <div class="grid my-fleet" id="myFleetGrid">
+                    <!-- HVeader labels A-J for "My Fleet" -->
+                    <div class="header-style1"></div>
+                    <div class="header header-style2">A</div>
+                    <div class="header header-style1">B</div>
+                    <div class="header header-style2">C</div>
+                    <div class="header header-style1">D</div>
+                    <div class="header header-style2">E</div>
+                    <div class="header header-style1">F</div>
+                    <div class="header header-style2">G</div>
+                    <div class="header header-style1">H</div>
+                    <div class="header header-style2">I</div>
+                    <div class="header header-style1">J</div>
+                    
+                    <!-- Rows 1-10 for "My Fleet" -->
+                    <div class="header header-style2">1</div>
+                    <div class="cell cell-style-1" id="cell-1-1" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="1" data-col="1"></div>
+                    <div class="cell cell-style-2" id="cell-1-2" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="1" data-col="2"></div>
+                    <div class="cell cell-style-1" id="cell-1-3" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="1" data-col="3"></div>
+                    <div class="cell cell-style-2" id="cell-1-4" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="1" data-col="4"></div>
+                    <div class="cell cell-style-1" id="cell-1-5" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="1" data-col="5"></div>
+                    <div class="cell cell-style-2" id="cell-1-6" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="1" data-col="6"></div>
+                    <div class="cell cell-style-1" id="cell-1-7" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="1" data-col="7"></div>
+                    <div class="cell cell-style-2" id="cell-1-8" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="1" data-col="8"></div>
+                    <div class="cell cell-style-1" id="cell-1-9" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="1" data-col="9"></div>
+                    <div class="cell cell-style-2" id="cell-1-10" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="1" data-col="10"></div>
+
+                    <div class="header header-style1">2</div>
+                    <div class="cell cell-style-3" id="cell-2-1" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="2" data-col="1"></div>
+                    <div class="cell cell-style-3" id="cell-2-2" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="2" data-col="2"></div>
+                    <div class="cell cell-style-3" id="cell-2-3" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="2" data-col="3"></div>
+                    <div class="cell cell-style-3" id="cell-2-4" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="2" data-col="4"></div>
+                    <div class="cell cell-style-3" id="cell-2-5" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="2" data-col="5"></div>
+                    <div class="cell cell-style-3" id="cell-2-6" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="2" data-col="6"></div>
+                    <div class="cell cell-style-3" id="cell-2-7" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="2" data-col="7"></div>
+                    <div class="cell cell-style-3" id="cell-2-8" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="2" data-col="8"></div>
+                    <div class="cell cell-style-3" id="cell-2-9" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="2" data-col="9"></div>
+                    <div class="cell cell-style-3" id="cell-2-10" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="2" data-col="10"></div>
+
+                    <div class="header header-style2">3</div>
+                    <div class="cell cell-style-1" id="cell-3-1" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="3" data-col="1"></div>
+                    <div class="cell cell-style-2" id="cell-3-2" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="3" data-col="2"></div>
+                    <div class="cell cell-style-1" id="cell-3-3" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="3" data-col="3"></div>
+                    <div class="cell cell-style-2" id="cell-3-4" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="3" data-col="4"></div>
+                    <div class="cell cell-style-1" id="cell-3-5" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="3" data-col="5"></div>
+                    <div class="cell cell-style-2" id="cell-3-6" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="3" data-col="6"></div>
+                    <div class="cell cell-style-1" id="cell-3-7" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="3" data-col="7"></div>
+                    <div class="cell cell-style-2" id="cell-3-8" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="3" data-col="8"></div>
+                    <div class="cell cell-style-1" id="cell-3-9" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="3" data-col="9"></div>
+                    <div class="cell cell-style-2" id="cell-3-10" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="3" data-col="10"></div>
+
+                    <div class="header header-style1">4</div>
+                    <div class="cell cell-style-3" id="cell-4-1" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="4" data-col="1"></div>
+                    <div class="cell cell-style-3" id="cell-4-2" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="4" data-col="2"></div>
+                    <div class="cell cell-style-3" id="cell-4-3" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="4" data-col="3"></div>
+                    <div class="cell cell-style-3" id="cell-4-4" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="4" data-col="4"></div>
+                    <div class="cell cell-style-3" id="cell-4-5" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="4" data-col="5"></div>
+                    <div class="cell cell-style-3" id="cell-4-6" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="4" data-col="6"></div>
+                    <div class="cell cell-style-3" id="cell-4-7" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="4" data-col="7"></div>
+                    <div class="cell cell-style-3" id="cell-4-8" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="4" data-col="8"></div>
+                    <div class="cell cell-style-3" id="cell-4-9" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="4" data-col="9"></div>
+                    <div class="cell cell-style-3" id="cell-4-10" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="4" data-col="10"></div>
+                    
+                    <div class="header header-style2">5</div>
+                    <div class="cell cell-style-1" id="cell-5-1" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="5" data-col="1"></div>
+                    <div class="cell cell-style-2" id="cell-5-2" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="5" data-col="2"></div>
+                    <div class="cell cell-style-1" id="cell-5-3" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="5" data-col="3"></div>
+                    <div class="cell cell-style-2" id="cell-5-4" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="5" data-col="4"></div>
+                    <div class="cell cell-style-1" id="cell-5-5" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="5" data-col="5"></div>
+                    <div class="cell cell-style-2" id="cell-5-6" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="5" data-col="6"></div>
+                    <div class="cell cell-style-1" id="cell-5-7" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="5" data-col="7"></div>
+                    <div class="cell cell-style-2" id="cell-5-8" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="5" data-col="8"></div>
+                    <div class="cell cell-style-1" id="cell-5-9" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="5" data-col="9"></div>
+                    <div class="cell cell-style-2" id="cell-5-10" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="5" data-col="10"></div>
+                    
+                    <div class="header header-style1">6</div>
+                    <div class="cell cell-style-3" id="cell-6-1" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="6" data-col="1"></div>
+                    <div class="cell cell-style-3" id="cell-6-2" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="6" data-col="2"></div>
+                    <div class="cell cell-style-3" id="cell-6-3" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="6" data-col="3"></div>
+                    <div class="cell cell-style-3" id="cell-6-4" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="6" data-col="4"></div>
+                    <div class="cell cell-style-3" id="cell-6-5" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="6" data-col="5"></div>
+                    <div class="cell cell-style-3" id="cell-6-6" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="6" data-col="6"></div>
+                    <div class="cell cell-style-3" id="cell-6-7" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="6" data-col="7"></div>
+                    <div class="cell cell-style-3" id="cell-6-8" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="6" data-col="8"></div>
+                    <div class="cell cell-style-3" id="cell-6-9" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="6" data-col="9"></div>
+                    <div class="cell cell-style-3" id="cell-6-10" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="6" data-col="10"></div>
+                    
+                    <div class="header header-style2">7</div>
+                    <div class="cell cell-style-1" id="cell-7-1" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="7" data-col="1"></div>
+                    <div class="cell cell-style-2" id="cell-7-2" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="7" data-col="2"></div>
+                    <div class="cell cell-style-1" id="cell-7-3" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="7" data-col="3"></div>
+                    <div class="cell cell-style-2" id="cell-7-4" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="7" data-col="4"></div>
+                    <div class="cell cell-style-1" id="cell-7-5" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="7" data-col="5"></div>
+                    <div class="cell cell-style-2" id="cell-7-6" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="7" data-col="6"></div>
+                    <div class="cell cell-style-1" id="cell-7-7" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="7" data-col="7"></div>
+                    <div class="cell cell-style-2" id="cell-7-8" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="7" data-col="8"></div>
+                    <div class="cell cell-style-1" id="cell-7-9" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="7" data-col="9"></div>
+                    <div class="cell cell-style-2" id="cell-7-10" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="7" data-col="10"></div>
+                    
+                    <div class="header header-style1">8</div>
+                    <div class="cell cell-style-3" id="cell-8-1" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="8" data-col="1"></div>
+                    <div class="cell cell-style-3" id="cell-8-2" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="8" data-col="2"></div>
+                    <div class="cell cell-style-3" id="cell-8-3" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="8" data-col="3"></div>
+                    <div class="cell cell-style-3" id="cell-8-4" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="8" data-col="4"></div>
+                    <div class="cell cell-style-3" id="cell-8-5" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="8" data-col="5"></div>
+                    <div class="cell cell-style-3" id="cell-8-6" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="8" data-col="6"></div>
+                    <div class="cell cell-style-3" id="cell-8-7" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="8" data-col="7"></div>
+                    <div class="cell cell-style-3" id="cell-8-8" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="8" data-col="8"></div>
+                    <div class="cell cell-style-3" id="cell-8-9" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="8" data-col="9"></div>
+                    <div class="cell cell-style-3" id="cell-8-10" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="8" data-col="10"></div>
+                    
+                    <div class="header header-style2">9</div>
+                    <div class="cell cell-style-1" id="cell-9-1" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="9" data-col="1"></div>
+                    <div class="cell cell-style-2" id="cell-9-2" ondro="dropShip(event)" ondragover="allowDrop(event)" data-row="9" data-col="2"></div>
+                    <div class="cell cell-style-1" id="cell-9-3" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="9" data-col="3"></div>
+                    <div class="cell cell-style-2" id="cell-9-4" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="9" data-col="4"></div>
+                    <div class="cell cell-style-1" id="cell-9-5" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="9" data-col="5"></div>
+                    <div class="cell cell-style-2" id="cell-9-6" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="9" data-col="6"></div>
+                    <div class="cell cell-style-1" id="cell-9-7" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="9" data-col="7"></div>
+                    <div class="cell cell-style-2" id="cell-9-8" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="9" data-col="8"></div>
+                    <div class="cell cell-style-1" id="cell-9-9" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="9" data-col="9"></div>
+                    <div class="cell cell-style-2" id="cell-9-10" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="9" data-col="10"></div>
+                    
+                    <div class="header header-style1">10</div>
+                    <div class="cell cell-style-3" id="cell-10-1" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="10" data-col="1"></div>
+                    <div class="cell cell-style-3" id="cell-10-2" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="10" data-col="2"></div>
+                    <div class="cell cell-style-3" id="cell-10-3" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="10" data-col="3"></div>
+                    <div class="cell cell-style-3" id="cell-10-4" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="10" data-col="4"></div>
+                    <div class="cell cell-style-3" id="cell-10-5" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="10" data-col="5"></div>
+                    <div class="cell cell-style-3" id="cell-10-6" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="10" data-col="6"></div>
+                    <div class="cell cell-style-3" id="cell-10-7" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="10" data-col="7"></div>
+                    <div class="cell cell-style-3" id="cell-10-8" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="10" data-col="8"></div>
+                    <div class="cell cell-style-3" id="cell-10-9" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="10" data-col="9"></div>
+                    <div class="cell cell-style-3" id="cell-10-10" ondrop="dropShip(event)" ondragover="allowDrop(event)" data-row="10" data-col="10"></div>
+                    
+                </div>
+            </div>
+
+            <!-- SHIP PLACEMENT GRID -->
+            <div class="board ">
+                <h2>SHIP PLACEMENT GRID</h2>
+                <div class="placement-board">
+                    <div class="ship-placement-grid">
+                        <div class="ship-grid" id="shipPlacementGrid">
+                            <!-- 4x4 Grid -->
+                            <div class="cell" id="shipCell-0" draggable="true" ondragstart="dragStart(event)"></div>
+                            <div class="cell" id="shipCell-1" draggable="true" ondragstart="dragStart(event)"></div>
+                            <div class="cell" id="shipCell-2" draggable="true" ondragstart="dragStart(event)"></div>
+                            <div class="cell" id="shipCell-3" draggable="true" ondragstart="dragStart(event)"></div>
+                            <div class="cell" id="shipCell-4" draggable="true" ondragstart="dragStart(event)"></div>
+                            <div class="cell" id="shipCell-5" draggable="true" ondragstart="dragStart(event)"></div>
+                            <div class="cell" id="shipCell-6" draggable="true" ondragstart="dragStart(event)"></div>
+                            <div class="cell" id="shipCell-7" draggable="true" ondragstart="dragStart(event)"></div>
+                            <div class="cell" id="shipCell-8" draggable="true" ondragstart="dragStart(event)"></div>
+                            <div class="cell" id="shipCell-9" draggable="true" ondragstart="dragStart(event)"></div>
+                            <div class="cell" id="shipCell-10" draggable="true" ondragstart="dragStart(event)"></div>
+                            <div class="cell" id="shipCell-11" draggable="true" ondragstart="dragStart(event)"></div>
+                            <div class="cell" id="shipCell-12" draggable="true" ondragstart="dragStart(event)"></div>
+                            <div class="cell" id="shipCell-13" draggable="true" ondragstart="dragStart(event)"></div>
+                            <div class="cell" id="shipCell-14" draggable="true" ondragstart="dragStart(event)"></div>
+                            <div class="cell" id="shipCell-15" draggable="true" ondragstart="dragStart(event)"></div>
+                        </div>
+                        <button id="rotateButton"></button>
+                    </div>
+
+                    <!-- Ships Left Section -->
+                    <div class="ship-status" style="margin-top: 20px; text-align: left; height: 220px; width: 220px;">
+                        <h3>Ships Left:</h3>
+                        <div>
+                            <!-- Display Ships Left -->
+                            <div>
+                                <p class="ships-left">1 x</p>
+                                <div class="ship4 ships-left"></div>
+                            </div>
+                            <div>
+                                <p class="ships-left">2 x</p>
+                                <div class="ship3 ships-left"></div>
+                            </div>
+                            <div>
+                                <p class="ships-left">3 x</p>
+                                <div class="ship2 ships-left"></div>
+                            </div>
+                            <div>
+                                <p class="ships-left">4 x</p>
+                                <div class="ship1 ships-left"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="confirmButton" disabled>Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/shipPlacement.js"></script>
+</body>
+</html>
