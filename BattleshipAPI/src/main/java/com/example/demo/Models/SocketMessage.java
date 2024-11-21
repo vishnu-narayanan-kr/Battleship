@@ -8,6 +8,8 @@ import lombok.*;
 @Data
 public class SocketMessage {
 	private String username;
-	private String opponent;
 	private String message;
+	
+	private int x;
+	private int y;
 }
