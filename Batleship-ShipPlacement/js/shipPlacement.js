@@ -15,9 +15,14 @@ let shipQueue = [
   { length: 2, count: 3 },
   { length: 1, count: 4 },
 ];
+
 let currentShipIndex = 0; // Track the current ship
 let isVertical = true; // Track rotation state
 let draggedShip; // Store the currently dragged ship
+
+
+
+
 
 // Update "Ships Left" UI
 function updateShipsLeft() {
@@ -39,54 +44,63 @@ function updateShipsLeft() {
   // Update the state of the confirmation button
   updateConfirmButtonState(); // <- Ensure this is called here
 }
+// Initialize the ships left 
+updateShipsLeft();
+
+
 
 // Display current ship on "shipPlacementGrid"
 function updateShipPlacement() {
   const cells = shipPlacementGrid.querySelectorAll(".cell");
   cells.forEach((cell) => cell.classList.remove("ship"));
 
-  // Safeguard: Prevent errors when no ships are left
-  if (currentShipIndex >= shipQueue.length || shipQueue[currentShipIndex] === undefined || shipQueue[currentShipIndex].count === 0) {
+  // Check if currentShipIndex is valid
+  if (
+    currentShipIndex >= shipQueue.length ||
+    shipQueue[currentShipIndex] === undefined ||
+    shipQueue[currentShipIndex].count === 0
+  ) {
     return; // No ship to place
   }
 
   const shipLength = shipQueue[currentShipIndex]?.length;
-  if (!shipLength) return; // No ships left in the queue
 
   if (isVertical) {
-    // Place ship vertically starting in the center column
+    // Place ship vertically in the center column
     for (let i = 0; i < shipLength; i++) {
-      const cell = cells[5 + i * 4]; // Adjust center column
-      if (cell) cell.classList.add("ship");
+      const index = 1 + i * 4; // Index for the cell
+      cells[index].classList.add("ship");
     }
   } else {
-    // Place ship horizontally starting in the center row
+    // Place ship horizontally in the center row
     for (let i = 0; i < shipLength; i++) {
-      const cell = cells[20 + i]; // Adjust center row
-      if (cell) cell.classList.add("ship");
+      const index = 4 + i; // Index for the cell
+      cells[index].classList.add("ship");
     }
   }
-  console.log("Current Ship Index:", currentShipIndex); //debug
-console.log("Ship Queue State:", shipQueue); //debug
 }
+// Initialize the first ship placement
+updateShipPlacement();
 
 
+
+//ROTATION
 //roration button functionality
 rotateButton.addEventListener("click", () => {
   isVertical = !isVertical; // Toggle orientation
   updateShipPlacement();    // Update the placement grid
 });
 
-// Allow drop on cells
-function allowDrop(event) {
-  event.preventDefault();
-}
+// Event listener for rotation
+rotateButton.addEventListener("click", () => {
+  isVertical = !isVertical;
+  updateShipPlacement();
+});
 
-// Handle drag start
-function dragStart(event) {
-  draggedShip = event.target;
-}
 
+
+
+//VALIDATION
 // Validate placement
 function isPlacementValid(row, col, length, vertical) {
   for (let i = 0; i < length; i++) {
@@ -113,7 +127,7 @@ function isCellOccupied(row, col) {
     [0, -1], [0, 0], [0, 1],
     [1, -1], [1, 0], [1, 1],
   ];
-
+  
   return directions.some(([dRow, dCol]) => {
     const checkRow = row + dRow;
     const checkCol = col + dCol;
@@ -167,8 +181,6 @@ function addSurroundingCells(row, col, surroundingCells) {
   });
 }
 
-
-//DOTS
 // Add a dot to a cell
 function addDotToCell(cell) {
   if (!cell.classList.contains("dot")) {
@@ -207,6 +219,19 @@ function refreshDotsOnFleet() {
 }
 
 
+
+
+// DRAG-N-DROP
+// Allow drop on cells
+function allowDrop(event) {
+  event.preventDefault();
+}
+
+// Handle drag start
+function dragStart(event) {
+  draggedShip = event.target;
+}
+
 // Handle drop on "myFleetGrid"
 function dropShip(event) {
   event.preventDefault();
@@ -225,9 +250,14 @@ function dropShip(event) {
 
     // Update queue
     shipQueue[currentShipIndex].count--;
+
     if (shipQueue[currentShipIndex]?.count === 0) {
-      // Find the next ship with available count or set currentShipIndex out of bounds
       currentShipIndex = shipQueue.findIndex((ship) => ship.count > 0);
+    }
+
+    // Ensure currentShipIndex stays valid
+    if (currentShipIndex === -1) {
+      currentShipIndex = shipQueue.length; // Set index out of bounds
     }
 
     // Refresh dots
@@ -235,26 +265,12 @@ function dropShip(event) {
 
     // Update UI
     updateShipsLeft();
-    updateShipPlacement(); // This won't throw an error now
-  } else {
+    updateShipPlacement();
+    updateConfirmButtonState(); // Check button activation
+  }/* else {
     notifyUser("Invalid placement. Ships cannot overlap or touch.");
-  }
-  console.log("Current Ship Index:", currentShipIndex);  //debug
-console.log("Ship Queue State:", shipQueue);  //debug
+  }*/
 }
-
-
-
-//custom notification instead of alert
-function notifyUser(message) {
-    console.log(message); // You can replace this with a modal or other UI element
-}
-
-// Event listener for rotation
-rotateButton.addEventListener("click", () => {
-  isVertical = !isVertical;
-  updateShipPlacement();
-});
 
 // Attach drag-and-drop listeners
 document.querySelectorAll("#shipPlacementGrid .cell").forEach((cell) => {
@@ -262,14 +278,22 @@ document.querySelectorAll("#shipPlacementGrid .cell").forEach((cell) => {
   cell.addEventListener("dragstart", dragStart);
 });
 
+// Drag over
 fleetCells.forEach((cell) => {
   cell.addEventListener("dragover", allowDrop);
   cell.addEventListener("drop", dropShip);
 });
 
-// Initialize
+
+
+
+
+
+// Initialize the ships left section and the first ship placement
 updateShipsLeft();
 updateShipPlacement();
+
+
 
 
 // Function to update the ship placement grid
@@ -278,28 +302,24 @@ function updateShipPlacement() {
   cells.forEach((cell) => cell.classList.remove("ship"));
 
   const shipLength = shipQueue[currentShipIndex].length;
+
   if (isVertical) {
     // Place ship vertically in the center column
     for (let i = 0; i < shipLength; i++) {
-      cells[1 + i * 4].classList.add("ship");
+      const index = 1 + i * 4; // Index for the cell
+      cells[index].classList.add("ship");
     }
   } else {
     // Place ship horizontally in the center row
     for (let i = 0; i < shipLength; i++) {
-      cells[4 + i].classList.add("ship");
+      const index = 4 + i; // Index for the cell
+      cells[index].classList.add("ship");
     }
   }
 }
 
-// Handle the rotate button click
-rotateButton.addEventListener("click", () => {
-  isVertical = !isVertical;
-  updateShipPlacement();
-});
 
-// Initialize the ships left section and the first ship placement
-updateShipsLeft();
-updateShipPlacement();
+
 
 
 // removing ship from my fleet back to placement grid
@@ -307,35 +327,31 @@ updateShipPlacement();
 myFleetGrid.addEventListener("dblclick", (event) => {
   const targetCell = event.target;
 
-  if (!targetCell.classList.contains("ship")) return; // Ensure it’s a ship cell
+  if (!targetCell.classList.contains("ship")) return;
 
-  // Find the row and column of the clicked cell
   const targetRow = parseInt(targetCell.dataset.row, 10);
   const targetCol = parseInt(targetCell.dataset.col, 10);
 
-  // Find all cells occupied by this ship
   const shipInfo = findShipCells(targetRow, targetCol);
-  if (!shipInfo) return; // No valid ship found
+  if (!shipInfo) return;
 
   const { length, vertical, cells } = shipInfo;
 
-  // Clear the ship from MY FLEET grid
   cells.forEach(({ row, col }) => {
     const cell = document.querySelector(`[data-row="${row}"][data-col="${col}"]`);
     if (cell) cell.classList.remove("ship");
   });
 
-  // Return the ship to the queue
   shipQueue.find((ship) => ship.length === length).count++;
+
   currentShipIndex = shipQueue.findIndex((ship) => ship.count > 0);
 
-  // Refresh dots
   refreshDotsOnFleet();
-
-  // Update UI
-  updateShipsLeft(); // Ensure button state updates here
+  updateShipsLeft();
   updateShipPlacement();
+  updateConfirmButtonState(); // Check button activation
 });
+
 
 
 
@@ -425,26 +441,15 @@ function removeShipFromFleet(row, col, length, vertical) {
 }
 
 //CONFIRMATION
-// Enable/Disable the button based on "Ships Left"
-/*function updateConfirmButtonState() {
-  const allShipsPlaced = shipQueue.every((ship) => ship.count === 0);
-    console.log(shipQueue); //debug
-  confirmButton.disabled = !allShipsPlaced; // Enable only if all ships are placed
-}*/
-
-function updateConfirmButtonState() {
+function updateConfirmButtonState() { // Enable/Disable the button based on "Ships Left"
   const allShipsPlaced = shipQueue.every((ship) => ship.count === 0);
   confirmButton.disabled = !allShipsPlaced; // Enable only if all ships are placed
-      console.log(shipQueue); //debug
-
-
-  if (allShipsPlaced) console.log("All ships placed!");
 }
 
 // Add event listener to confirmation button
 confirmButton.addEventListener("click", () => {
   const gridArray = generateGridArray();
-  console.log("Ship Placement Array:", gridArray); // Print to console or pass to backend
+  //console.log("Ship Placement Array:", gridArray); // Print to console or pass to backend
 });
 
 // Generate the 10x10 grid array
@@ -456,6 +461,9 @@ function generateGridArray() {
     const col = parseInt(cell.dataset.col, 10) - 1; // Convert to 0-indexed
     gridArray[row][col] = 1; // Mark cell as occupied
   });
-    console.log(generateGridArray()); //debug
+
+  console.log("Generated Grid Array:", gridArray); // Log once after the array is fully constructed
   return gridArray;
 }
+
+
