@@ -1,3 +1,4 @@
+# Project Setup
 1. Clone repo
 
 2. Download and configure your lombok to use with IDE
