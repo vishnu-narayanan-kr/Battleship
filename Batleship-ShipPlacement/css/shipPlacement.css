@@ -1,0 +1,145 @@
+
+.placement-board {
+    height: 440px;
+    width: 440px;
+    align-items: left;
+}
+
+
+
+.ship-placement-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    
+}
+
+
+
+
+
+.ship-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 40px);
+    grid-template-rows: repeat(4, 40px);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* SHIPS LEFT */
+.ship-status .ship {
+    height: 40px;
+}
+
+.ships-left {
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: 4px;
+}
+
+.ship1 {
+    width: 40px;
+    background-color: #A9A9A9;
+    height: 40px;
+}
+.ship2 {
+    width: 80px;
+    background-color: #A9A9A9;
+    height: 40px;
+}
+.ship3 {
+    width: 120px;
+    background-color: #A9A9A9;
+    height: 40px;
+}
+.ship4 {
+    width: 160px;
+    background-color: #A9A9A9;
+    height: 40px;
+}
+
+.ship-not-avaible {
+        background-color: #111 !important;
+}
+
+.shipplacement {
+        width: 400px;
+}
+
+
+/*
+.dot {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+*/
+.dot {
+  position: relative;
+}
+
+.dot::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+
+#rotateButton {
+    background: url('/media/rotate-btn.svg') no-repeat center center;
+    background-size: contain; /* Ensures the SVG scales to fit */
+    border: none;
+    width: 40px; /* Adjust to match the SVG size */
+    height: 40px; /* Adjust to match the SVG size */
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#rotateButton:hover {
+    background-color: #074578;
+}
+
+
+
+
+
+
+
+
+
+#confirmButton {
+    margin-top: 20px;
+    padding: 8px 16px;
+    background-color: gray;
+    color: white;
+    border: none;
+    /*cursor: not-allowed; */
+    cursor: pointer;
+}
+
+/*
+#confirmButton.enabled {
+    background-color: #0B589C;
+    cursor: pointer;
+} */
