@@ -10,4 +10,38 @@ public class Utility {
 
 		return simpleDateFormat.format(new Date());
 	}
+	
+	public static int[][] getGridArray(String gridString) {
+		int[][] grid = new int[10][10];
+		
+		try {
+			
+			for(int i = 0; i < 100; i++) {
+				grid[i / 10][i % 10] = gridString.charAt(i);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Grid convertion error!");
+		}
+		
+		return grid;
+	}
+	
+	public static String getGridString(int[][] grid) {
+		String gridString = "";
+		
+		try {
+			
+			for(int i = 0; i < 100; i++) {
+				gridString += grid[i / 10][i % 10];
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Grid convertion error!");
+		}
+		
+		return gridString;
+	}
 }
