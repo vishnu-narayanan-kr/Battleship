@@ -14,8 +14,9 @@ select * from players;
 
 --EXEC sp_rename 'players.loginTime', 'lastSeen', 'COLUMN';
 
-drop table matches
-drop table players
+--drop table matches
+--drop table players
+--drop table [queue]
 
 create table matches(
 	mId int identity(1, 1) primary key,

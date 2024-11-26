@@ -25,15 +25,29 @@
         socket.onclose = function(event) {
             console.log("WebSocket connection closed:", event);
         };
-        
-        function sendMessage() {
+
+        function register() {
+            // to be done on socket.onopen
             message = { 
                 username: document.getElementById('username').value,
-                message: document.getElementById('message').value,
-                x: 2,
-                y: 5
+                messageType: "register",
             };
-
+            // -2, -1, 0, 1 => 1, 2, 3, 4 => 1 means miss, 2 means hit, 3 normal, 4 means ship
+            if (socket.readyState === WebSocket.OPEN) {
+                socket.send(JSON.stringify(message));
+            } else {
+                console.error("WebSocket connection is not open.");
+            }
+        }
+        
+        function sendMove() {
+            message = { 
+                username: document.getElementById('username').value,
+                messageType: "move",
+                x: +document.getElementById("x").value,
+                y: +document.getElementById("y").value
+            };
+            // -2, -1, 0, 1 => 1, 2, 3, 4 => 1 means miss, 2 means hit, 3 normal, 4 means ship
             if (socket.readyState === WebSocket.OPEN) {
                 socket.send(JSON.stringify(message));
             } else {
@@ -45,15 +59,18 @@
     </script>
 </head>
 <body>
-    <input type="text" id="message">
-    <button onclick="sendMessage(document.getElementById('message').value)" disabled>Send</button>
-    <br>
     <label for="username">Username: </label>
-    <input type="type" id="username"></input>
+    <input type="text" id="username"></input>
     <br>
-    <label for="opponent">Opponent: </label>
-    <input type="type" id="opponent"></input>
-    <button onclick="sendMessage()">Send JSON</button>
+    <button onclick="register()">Register user</button>
+    <br>
+    <label for="x">X: </label>
+    <input type="text" id="x"></input>
+    <br>
+    <label for="y">Y: </label>
+    <input type="text" id="y"></input>
+    <br>
+    <button onclick="sendMove()">Move</button>
     <div>
         <h3>Recieved Messages</h3>
         <div id="recieved-messages"></div>

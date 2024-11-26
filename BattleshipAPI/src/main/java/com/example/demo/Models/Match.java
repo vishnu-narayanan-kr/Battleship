@@ -27,6 +27,8 @@ public class Match {
  private String p2;
  @Column(columnDefinition = "VARCHAR(30)")
  private String startTime;
+ @Column(columnDefinition = "VARCHAR(30)")
+ private String lastMovedAt;
  @Column(columnDefinition = "NVARCHAR(50)")
  private String currentPlayer;
  @Column(columnDefinition = "VARCHAR(100)")
