@@ -17,7 +17,7 @@ public class Utility {
 		try {
 			
 			for(int i = 0; i < 100; i++) {
-				grid[i / 10][i % 10] = gridString.charAt(i);
+				grid[i / 10][i % 10] = Integer.parseInt(String.valueOf(gridString.charAt(i)));
 			}
 			
 		} catch (Exception e) {
@@ -43,5 +43,31 @@ public class Utility {
 		}
 		
 		return gridString;
+	}
+
+	public static String getUpdatedGridString(int x, int y, int[][] grid) throws Exception {
+		if ((((10 * x) + y) < 0) || (99 < ((10 * x) + y))) { 
+			throw new Exception("Invalid move");
+		}
+		
+		int currentCellValue = grid[x][y];
+		
+		if((currentCellValue < 3 || 4 < currentCellValue)) {
+			throw new Exception("Invalid move");
+		}
+		
+		grid[x][y] -= 2;
+		
+		return getGridString(grid);
+	}
+	
+	public static boolean isWinner(int[][] grid) {
+		for(int i = 0; i < 100; i++) {
+			if(grid[i / 10][i % 10] == 4) {
+				return false;
+			}
+		}
+		
+		return true;
 	}
 }

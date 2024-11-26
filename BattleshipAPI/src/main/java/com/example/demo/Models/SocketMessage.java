@@ -9,6 +9,7 @@ import lombok.*;
 public class SocketMessage {
 	private String username;
 	private String message;
+	private String messageType;
 	
 	private int x;
 	private int y;

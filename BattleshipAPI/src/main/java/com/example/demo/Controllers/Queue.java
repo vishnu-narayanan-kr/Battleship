@@ -34,7 +34,7 @@ public class Queue {
 		
 		// try matchmaking first
 		try {
-			Optional<Match> existingActiveMatch = matchRepository.findByIsActiveTrueAndP1OrP2(username, username);
+			Optional<Match> existingActiveMatch = matchRepository.findByIsActiveTrueAndP1OrIsActiveTrueAndP2(username, username);
 			
 			if(existingActiveMatch.isPresent()) {
 				message = "Can't queue, you are already matched";
@@ -49,6 +49,7 @@ public class Queue {
 					username,
 					oldQueue.getUsername(),
 					Utility.getTimeStamp(),
+					null,
 					username,
 					grid,
 					oldQueue.getGrid(),
