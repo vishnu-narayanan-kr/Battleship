@@ -44,7 +44,7 @@ public class Matches {
     	HttpStatus statusCode = HttpStatus.OK;
     	
     	try {
-            match = matchRepository.findByIsActiveTrueAndP1OrP2(username, username).get();
+            match = matchRepository.findByIsActiveTrueAndP1OrIsActiveTrueAndP2(username, username).get();
             message = "Match details found";
     	} catch(Exception ex) {
     		match = null;
