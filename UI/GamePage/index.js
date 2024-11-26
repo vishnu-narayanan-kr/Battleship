@@ -1,40 +1,164 @@
-const playerShips = [
-    [ 0, 1, 1, 1, 0, 0, 0, 1, 0, 0 ],
-    [ 0, 0, 0, 0, 0, 0, 1, 0, 1, 0 ],
-    [ 0, 0, 0, 0, 0, 0, 0, 1, 0, 0 ],
-    [ 0, 0, 1, 0, 0, 0, 0, 0, 0, 0 ],
-    [ 0, 1, 1, 1, 1, 1, 0, 0, 0, 0 ],
-    [ 0, 0, 1, 0, 0, 0, 0, 0, 0, 0 ],
-    [ 0, 0, 0, 0, 0, 1, 1, 1, 0, 0 ],
-    [ 0, 0, 1, 0, 0, 1, 0, 1, 0, 0 ],
-    [ 0, 0, 1, 0, 0, 1, 1, 1, 0, 0 ],
-    [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
-];
 
-const enemyShips = [
-    [ 0, 0, 0, 0, 1, 0, 0, 1, 1, 1 ],
-    [ 0, 0, 0, 1, 1, 1, 0, 0, 1, 0 ],
-    [ 0, 0, 0, 0, 1, 0, 0, 0, 0, 0 ],
-    [ 0, 0, 1, 0, 0, 0, 0, 0, 0, 0 ],
-    [ 0, 1, 1, 1, 0, 0, 1, 0, 0, 0 ],
-    [ 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 ],
-    [ 0, 0, 1, 0, 0, 1, 1, 1, 0, 0 ],
-    [ 0, 0, 1, 0, 0, 1, 0, 1, 0, 0 ],
-    [ 0, 0, 1, 0, 0, 0, 0, 0, 0, 0 ],
-    [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
-]
+const isOnline = true
+let username;
+
+let playerShips;
+let enemyShips;
+
+let socket;
+
+const sendToAPI = (message) => {
+    if (socket?.readyState === WebSocket.OPEN) {
+        socket.send(JSON.stringify(message));
+    } else {
+        console.error("WebSocket connection is not open.");
+    }
+}
+
+if (isOnline) {
+    playerShips = [
+        [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 ],
+        [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 ],
+        [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 ],
+        [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 ],
+        [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 ],
+        [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 ],
+        [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 ],
+        [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 ],
+        [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 ],
+        [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 ]
+    ];
+
+    enemyShips = [
+        [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 ],
+        [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 ],
+        [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 ],
+        [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 ],
+        [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 ],
+        [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 ],
+        [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 ],
+        [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 ],
+        [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 ],
+        [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 ]
+    ]
+
+    socket = new WebSocket("ws://" + location.hostname + ":8080/websocket");
+        
+    socket.onopen = function(event) {
+        console.log("WebSocket connection established.");
+
+        // register user
+
+        const params = new URL(document.location.toString()).searchParams;
+        username = params.get("username");
+
+        const message = {
+            username,
+            messageType: "register",
+        };
+
+        sendToAPI(message);
+    };
+    
+    socket.onmessage = function(event) {
+        const messageData = JSON.parse(event.data);
+
+        console.log("Received message:", messageData);
+
+        if (messageData.startTime) {
+            let playerGridString;
+            let enemyGridString;
+
+            if (messageData.p1 === username) {
+                playerGridString = messageData.p1Grid;
+                enemyGridString = messageData.p2Grid;
+            } else if (messageData.p2 === username) {
+                playerGridString = messageData.p2Grid;
+                enemyGridString = messageData.p1Grid;
+            }
+
+            const updateGridFromString = (str, arr) => {
+                for(let i = 0; i < str.length; i++) {
+                    arr[Math.floor(i / 10)][i % 10] = Number.parseInt(str.charAt(i));
+                }
+            }
+
+            updateGridFromString(playerGridString, playerShips);
+            updateGridFromString(enemyGridString, enemyShips);
+
+            renderBoards();
+
+            if (messageData.winner) {
+                alert("Game over, the winner is: " + messageData.winner);
+                // redirect
+            }
+        }
+    };
+    
+    socket.onerror = function(error) {
+        console.error("WebSocket error: ", error);
+    };
+    
+    socket.onclose = function(event) {
+        console.log("WebSocket connection closed:", event);
+    };
+
+} else {
+    playerShips = [
+        [ 3, 4, 4, 4, 3, 3, 3, 4, 3, 3 ],
+        [ 3, 3, 3, 3, 3, 3, 4, 3, 4, 3 ],
+        [ 3, 3, 3, 3, 3, 3, 3, 4, 3, 3 ],
+        [ 3, 3, 4, 3, 3, 3, 3, 3, 3, 3 ],
+        [ 3, 4, 4, 4, 4, 4, 3, 3, 3, 3 ],
+        [ 3, 3, 4, 3, 3, 3, 3, 3, 3, 3 ],
+        [ 3, 3, 3, 3, 3, 4, 4, 4, 3, 3 ],
+        [ 3, 3, 4, 3, 3, 4, 3, 4, 3, 3 ],
+        [ 3, 3, 4, 3, 3, 4, 4, 4, 3, 3 ],
+        [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 ]
+    ];
+
+    enemyShips = [
+        [ 3, 3, 3, 3, 4, 3, 3, 4, 4, 4 ],
+        [ 3, 3, 3, 4, 4, 4, 3, 3, 4, 3 ],
+        [ 3, 3, 3, 3, 4, 3, 3, 3, 3, 3 ],
+        [ 3, 3, 4, 3, 3, 3, 3, 3, 3, 3 ],
+        [ 3, 4, 4, 4, 3, 3, 4, 3, 3, 3 ],
+        [ 3, 3, 4, 3, 3, 3, 4, 3, 3, 3 ],
+        [ 3, 3, 4, 3, 3, 4, 4, 4, 3, 3 ],
+        [ 3, 3, 4, 3, 3, 4, 3, 4, 3, 3 ],
+        [ 3, 3, 4, 3, 3, 3, 3, 3, 3, 3 ],
+        [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 ]
+    ]
+}
+
 
 const renderBoards = () => {
     for(let i = 0; i < 10; i++) {
         for(let j = 0; j < 10; j++) {
-            if(playerShips[i][j] === 1) {
-                document.getElementById(`p-${i}-${j}`).classList.add("ship");
+            let playerCell = document.getElementById(`p-${i}-${j}`);
+
+            if(playerShips[i][j] === 4) {
+                playerCell.classList.add("ship");
+            } else if (playerShips[i][j] == 2) {
+                playerCell.classList.remove("ship");
+                playerCell.classList.add("hit");
+            } else if (playerShips[i][j] == 1) {
+                playerCell.classList.remove("ship");
+                playerCell.classList.add("miss");
             }
             
-            /*
+            //*
             // for testing only
-            if(enemyShips[i][j] === 1) {
-                document.getElementById(`e-${i}-${j}`).classList.add("ship");
+            playerCell = document.getElementById(`e-${i}-${j}`);
+
+            if(enemyShips[i][j] === 4) {
+                playerCell.classList.add("ship");
+            } else if (enemyShips[i][j] == 2) {
+                playerCell.classList.remove("ship");
+                playerCell.classList.add("hit");
+            } else if (enemyShips[i][j] == 1) {
+                playerCell.classList.remove("ship");
+                playerCell.classList.add("miss");
             }
             //*/
         }
@@ -46,27 +170,35 @@ renderBoards();
 let hitCountPlayer = 0;
 let isGameOver = false;
 
-document.getElementById("enemy-board").addEventListener(
-    "click", (e) => {
-        const { id = "" } = e.target;
 
-        if(id.includes("e-")) {
-            const [ _, row, col ] = id.split('-');
-            
-            if(enemyShips[row][col] >= 0) {
-                enemyShips[row][col] -= 2;
+const movePlayer = (e) => {
+    const { id = "" } = e.target;
+
+    if(id.includes("e-")) {
+        const [ _, x, y ] = id.split('-');
+        
+        if (isOnline) {
+            const message = {
+                username,
+                messageType: "move",
+                x,
+                y,
+            }
+
+
+            console.log(message)
+            sendToAPI(message);
+        } else {
+            if(enemyShips[x][y] >= 3) {
+                enemyShips[x][y] -= 2;
                 
-                e.target.classList.remove("ship");
-                
-                if(enemyShips[row][col] == -1) {
-                    e.target.classList.add("hit");
+                if(enemyShips[x][y] == 2) {
                     hitCountPlayer++;
-                } else {
-                    e.target.classList.add("miss");
                 }
-
+    
+                renderBoards();
                 checkVictory();
-
+    
                 if(!isGameOver) {
                     moveAI();
                     checkVictory();
@@ -74,6 +206,11 @@ document.getElementById("enemy-board").addEventListener(
             }
         }
     }
+}
+
+
+document.getElementById("enemy-board").addEventListener(
+    "click", movePlayer
 )
 
 let dropCountAI = 0;
@@ -84,7 +221,7 @@ const findPlayerShip = () => {
     while(true) {
         for(let i = random(0, 9); i < 10; i++) {
             for(let j = 0; j < 10; j++) {
-                if(playerShips[i][j] === 1) {
+                if(playerShips[i][j] === 4) {
                     return [i, j];
                 }
             }
@@ -118,23 +255,18 @@ const moveAI = () => {
             }
         }
 
-        if(playerShips[row][col] >= 0) {
+        if(playerShips[row][col] >= 3) {
             moved = true;
             dropCountAI++;
 
             playerShips[row][col] -= 2;
 
-            const cell = document.getElementById(`p-${row}-${col}`);
-
-            cell.classList.remove("ship");
-
-            if(playerShips[row][col] == -1) {
-                cell.classList.add("hit");
+            if(playerShips[row][col] == 2) {
                 hitCountAI++;
-            } else {
-                cell.classList.add("miss");
             }
         }
+
+        renderBoards();
     }
 }
 
@@ -149,11 +281,11 @@ const checkVictory = () => {
 
     for(let i = 0; i < 10; i++) {
         for(let j = 0; j < 10; j++) {
-            if(playerShips[i][j] === 1) { 
+            if(playerShips[i][j] === 4) { 
                 didAIWin = false;
             }
             
-            if(enemyShips[i][j] === 1) {
+            if(enemyShips[i][j] === 4) {
                 didPlayerWin = false;
             }
         }
