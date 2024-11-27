@@ -70,4 +70,8 @@ public class Utility {
 		
 		return true;
 	}
+	
+	public static String getHiddenGrid(String grid) {
+		return grid.replace('4', '3');
+	}
 }

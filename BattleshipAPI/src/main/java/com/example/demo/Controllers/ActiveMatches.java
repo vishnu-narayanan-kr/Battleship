@@ -130,9 +130,10 @@ public class ActiveMatches extends TextWebSocketHandler {
                 	}
                 	
                 	if(sessions.containsKey(opponent)) {
-                    	newMessage = new TextMessage(mapper.writeValueAsString(match));
-                    	
+                    	newMessage = new TextMessage(mapper.writeValueAsString(match.getMatchWithHiddenGrid(opponent)));
                     	sessions.get(opponent).sendMessage(newMessage);
+                    	
+                    	newMessage = new TextMessage(mapper.writeValueAsString(match.getMatchWithHiddenGrid(username)));
                     	sessions.get(username).sendMessage(newMessage);
                 	} else {
                 		messageData.setMessage("Waiting for opponent to register");

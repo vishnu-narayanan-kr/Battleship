@@ -1,5 +1,7 @@
 package com.example.demo.Models;
 
+import com.example.demo.Utility;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -38,4 +40,27 @@ public class Match {
  private boolean isActive;
  @Column(columnDefinition = "NVARCHAR(50)")
  private String winner;
+ 
+ public Match getMatchWithHiddenGrid(String username) {
+	Match match = new Match(
+				mId,
+				p1,
+				p2,
+				startTime,
+				lastMovedAt,
+				currentPlayer,
+				p1Grid,
+				p2Grid,
+				isActive,
+				winner
+			);
+	
+	if(p1.equals(username)) {
+		match.setP2Grid(Utility.getHiddenGrid(p2Grid));
+	} else {
+		match.setP1Grid(Utility.getHiddenGrid(p1Grid));
+	}
+	 
+	 return match;
+ }
 }
