@@ -91,14 +91,6 @@ rotateButton.addEventListener("click", () => {
   updateShipPlacement();    // Update the placement grid
 });
 
-// Event listener for rotation
-rotateButton.addEventListener("click", () => {
-  isVertical = !isVertical;
-  updateShipPlacement();
-});
-
-
-
 
 //VALIDATION
 // Validate placement
@@ -454,16 +446,15 @@ confirmButton.addEventListener("click", () => {
 
 // Generate the 10x10 grid array
 function generateGridArray() {
-  const gridArray = Array.from({ length: 10 }, () => Array(10).fill(0)); // Initialize 10x10 grid with 0s
+  const gridArray = Array.from({ length: 10 }, () => Array(10).fill(3)); // Initialize 10x10 grid with 0s
 
   myFleetGrid.querySelectorAll(".ship").forEach((cell) => {
     const row = parseInt(cell.dataset.row, 10) - 1; // Convert to 0-indexed
     const col = parseInt(cell.dataset.col, 10) - 1; // Convert to 0-indexed
-    gridArray[row][col] = 1; // Mark cell as occupied
+    gridArray[row][col] = 4; // Mark cell as occupied
   });
 
   console.log("Generated Grid Array:", gridArray); // Log once after the array is fully constructed
   return gridArray;
 }
-
 
