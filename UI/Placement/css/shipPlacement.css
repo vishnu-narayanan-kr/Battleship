@@ -107,7 +107,7 @@
 
 
 #rotateButton {
-    background: url('/media/rotate-btn.svg') no-repeat center center;
+    background: url('../media/rotate-btn.svg') no-repeat center center;
     background-size: contain; /* Ensures the SVG scales to fit */
     border: none;
     width: 40px; /* Adjust to match the SVG size */
