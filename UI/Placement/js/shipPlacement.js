@@ -91,14 +91,6 @@ rotateButton.addEventListener("click", () => {
   updateShipPlacement();    // Update the placement grid
 });
 
-// Event listener for rotation
-rotateButton.addEventListener("click", () => {
-  isVertical = !isVertical;
-  updateShipPlacement();
-});
-
-
-
 
 //VALIDATION
 // Validate placement
@@ -448,22 +440,53 @@ function updateConfirmButtonState() { // Enable/Disable the button based on "Shi
 
 // Add event listener to confirmation button
 confirmButton.addEventListener("click", () => {
-  const gridArray = generateGridArray();
+  const grid = generateGridArray().toString().replaceAll(',','');
   //console.log("Ship Placement Array:", gridArray); // Print to console or pass to backend
+  const ip = true ? location.hostname : "172.20.10.12";  // false for developing
+  const url = "http://" + ip + ":8080/queue/enterQueue";
+  const username = "dani"; //needs to came from landingpage
+  fetch(url, {
+    method: 'POST', // HTTP method
+    headers: {
+        'Content-Type': 'application/json', // Specifies the content type (e.g., JSON)
+    },
+    body: JSON.stringify({
+        username,
+        grid
+      }), // The data to send
+  })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json(); // Convert the response to JSON
+    })
+    .then(data => {
+        console.log('Success:', data); // Handle the response data
+        window.location.replace("http://" + ip + ":5500/UI/GamePage/index.html?username=" + username);  //redirecting to gamePage
+
+    })
+    .catch(error => {
+        console.error('Error:', error); // Handle any errors
+    });
+
+  
 });
 
 // Generate the 10x10 grid array
 function generateGridArray() {
-  const gridArray = Array.from({ length: 10 }, () => Array(10).fill(0)); // Initialize 10x10 grid with 0s
+  const gridArray = Array.from({ length: 10 }, () => Array(10).fill(3)); // Initialize 10x10 grid with 0s
 
   myFleetGrid.querySelectorAll(".ship").forEach((cell) => {
     const row = parseInt(cell.dataset.row, 10) - 1; // Convert to 0-indexed
     const col = parseInt(cell.dataset.col, 10) - 1; // Convert to 0-indexed
-    gridArray[row][col] = 1; // Mark cell as occupied
+    gridArray[row][col] = 4; // Mark cell as occupied
   });
+  
 
-  console.log("Generated Grid Array:", gridArray); // Log once after the array is fully constructed
+
+  //console.log("Generated Grid Array:", gridArray); // Log once after the array is fully constructed
   return gridArray;
+  
 }
-
 
