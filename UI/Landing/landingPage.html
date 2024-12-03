@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Battleship Landing Page</title>
     <link rel="stylesheet" href="css/landingPage.css">
+    <script src="js/landingFunctions.js"></script>
 </head>
 <body>
     <header>
@@ -14,7 +15,7 @@
                 <p>Vishnu</p>
             </li>
             <li class="settings">
-                <button type="button"><img src="media/settingsIcon.png"/></button>
+                <button type="button" onclick="showSettings()"><img src="media/settingsIcon.png"/></button>
             </li>
         </ul>
     </header>
@@ -63,5 +64,27 @@
         <button type="button"><img src="media/leaderboardIcon.png"/></button>
         <button type="button"><img src="media/historyIcon.png"/></button>
     </footer>
+    <div class="settingsPopup" id="settingsPage">
+        <button type="button" onclick="closePopUpsMenus()">X</button>
+        <h1>Settings</h1>
+        <section>
+            <label>Language: </label>
+            <select>
+                <option value="eng">English</option>
+                <option value="fran">French</option>
+            </select>
+        </section>
+        <section>
+            <label>Volumen: <input type="range" min="0" max="100" value="50"/></label>
+        </section>
+        <section>
+            <label>Sounds: </label>
+            <select>
+                <option value="real">Realistic</option>
+                <option value="fun">Funny</option>
+                <option value="futur">Futuristic</option>
+            </select>
+        </section>
+    </div>
 </body>
 </html>
