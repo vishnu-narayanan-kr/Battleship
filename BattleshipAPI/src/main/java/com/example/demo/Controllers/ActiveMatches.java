@@ -106,13 +106,17 @@ public class ActiveMatches extends TextWebSocketHandler {
                 	
                 		int[][] opponentGrid = null;
                 		String opponentGridString = "";
+                	
+                		boolean isHit = false;
                 		
                 		if (isP1) {
                 			opponentGrid = Utility.getGridArray(match.getP2Grid());
+                			isHit = Utility.getIsHit(opponentGrid, x, y);
                 			opponentGridString = Utility.getUpdatedGridString(x, y, opponentGrid);
                 			match.setP2Grid(opponentGridString);
                 		} else {
                 			opponentGrid = Utility.getGridArray(match.getP1Grid());
+                			isHit = Utility.getIsHit(opponentGrid, x, y);
                 			opponentGridString = Utility.getUpdatedGridString(x, y, opponentGrid);
                 			match.setP1Grid(opponentGridString);
                 		}
@@ -123,7 +127,9 @@ public class ActiveMatches extends TextWebSocketHandler {
                 			match.setWinner(username);
                 			match.setActive(false);
                 		} else {
-                			match.setCurrentPlayer(opponent);                			
+                			if (!isHit) {
+                				match.setCurrentPlayer(opponent); 
+                			}
                 		}
                 		
                 		matchRepository.save(match);
