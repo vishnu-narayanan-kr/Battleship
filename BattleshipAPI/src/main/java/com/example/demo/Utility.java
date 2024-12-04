@@ -70,4 +70,16 @@ public class Utility {
 		
 		return true;
 	}
+	
+	public static String getHiddenGrid(String grid) {
+		return grid.replace('4', '3');
+	}
+	
+	public static boolean getIsHit(int[][] grid, int x, int y) {
+		if (grid[x][y] == 4) {
+			return true;
+		}
+		
+		return false;
+	}
 }

@@ -444,7 +444,10 @@ confirmButton.addEventListener("click", () => {
   //console.log("Ship Placement Array:", gridArray); // Print to console or pass to backend
   const ip = true ? location.hostname : "172.20.10.12";  // false for developing
   const url = "http://" + ip + ":8080/queue/enterQueue";
-  const username = "dani"; //needs to came from landingpage
+
+  const params = new URL(document.location.toString()).searchParams;
+  const  username = params.get("username");
+  
   fetch(url, {
     method: 'POST', // HTTP method
     headers: {

@@ -39,3 +39,15 @@ create table queue(
 )
 
 select * from queue;
+
+-- for leaderboard
+SELECT 
+    winner AS Player,
+    COUNT(*) AS Wins
+FROM 
+    Matches
+GROUP BY 
+    winner
+ORDER BY 
+    Wins DESC, 
+    Player ASC; -- Secondary sort by name alphabetically in case of ties
