@@ -13,6 +13,10 @@ body {
     color: #565656;
 }
 
+button {
+    cursor: pointer;
+}
+
 body button{
     background-color: #E6F7FF;
     border: 1px solid #565656;
@@ -29,6 +33,7 @@ header li{
 
 .profile{
     width: 200px;
+    visibility: hidden;
 }
 
 .profile img{
@@ -62,6 +67,7 @@ main section{
     margin-top: 45px;
     border: 1px solid #565656;
     border-radius: 5px;
+    visibility: hidden;
 }
 
 .friends li{
@@ -83,6 +89,9 @@ main section{
 .play{
     width: 75%;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .play h1 {
@@ -94,12 +103,14 @@ main section{
 .play p{
     font-size: 20px;
     margin-top: 110px;
-    color: #000000;
+    color: #0B589C;
+    background-color: wheat;
+    width: 35%;
 }
 
 .play input{
     font-size: 20px;
-    width: 15%;
+    width: 35%;
     margin: 5px 0;
 }
 
