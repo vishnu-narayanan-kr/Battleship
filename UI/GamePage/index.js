@@ -42,7 +42,11 @@ if (isOnline) {
         [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 ]
     ]
 
-    socket = new WebSocket("ws://" + location.hostname + ":8080/websocket");
+    if (location.hostname.includes("ngrok")) {
+        socket = new WebSocket("wss://fd56-70-81-74-194.ngrok-free.app/websocket");
+    } else {
+        socket = new WebSocket("ws://" + location.hostname + ":8080/websocket");
+    }
         
     socket.onopen = function(event) {
         console.log("WebSocket connection established.");
@@ -68,6 +72,7 @@ if (isOnline) {
         if (messageData.startTime) {
             let playerGridString;
             let enemyGridString;
+            updateCurrentPlayerInfo(messageData.currentPlayer);
 
             if (messageData.p1 === username) {
                 playerGridString = messageData.p1Grid;
@@ -91,6 +96,7 @@ if (isOnline) {
             if (messageData.winner) {
                 alert("Game over, the winner is: " + messageData.winner);
                 // redirect
+                window.location.replace(location.href.replace("GamePage", "Placement"));
             }
         }
     };
@@ -131,6 +137,9 @@ if (isOnline) {
     ]
 }
 
+const updateCurrentPlayerInfo = (name) => {
+    document.getElementById("turn-info").innerText = "Current Player: " + name;
+}
 
 const renderBoards = () => {
     for(let i = 0; i < 10; i++) {

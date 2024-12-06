@@ -41,8 +41,9 @@ h1 {
 }
 
 .turn-info {
-    font-size: 14px;
-    color: #A9A9A9;
+    font-size: 28px;
+    font-weight: bold;
+    color: black;
     position: absolute;
     top: 20px;
     right: 20px;

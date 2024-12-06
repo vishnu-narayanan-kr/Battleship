@@ -442,8 +442,18 @@ function updateConfirmButtonState() { // Enable/Disable the button based on "Shi
 confirmButton.addEventListener("click", () => {
   const grid = generateGridArray().toString().replaceAll(',','');
   //console.log("Ship Placement Array:", gridArray); // Print to console or pass to backend
-  const ip = true ? location.hostname : "172.20.10.12";  // false for developing
-  const url = "http://" + ip + ":8080/queue/enterQueue";
+
+  let baseURL;
+  
+  if(location.hostname.includes("ngrok")) {
+    baseURL = "https://fd56-70-81-74-194.ngrok-free.app";
+  } else {
+    baseURL = "http://" + location.hostname + ":8080"
+  }
+
+  const url = baseURL + "/queue/enterQueue";
+
+  console.log(url);
 
   const params = new URL(document.location.toString()).searchParams;
   const  username = params.get("username");
@@ -466,8 +476,8 @@ confirmButton.addEventListener("click", () => {
     })
     .then(data => {
         console.log('Success:', data); // Handle the response data
-        window.location.replace("http://" + ip + ":5500/UI/GamePage/index.html?username=" + username);  //redirecting to gamePage
-
+        //window.location.replace("http://" + ip + ":5500/UI/GamePage/index.html?username=" + username);  //redirecting to gamePage
+        window.location.replace(location.href.replace("Placement", "GamePage"));
     })
     .catch(error => {
         console.error('Error:', error); // Handle any errors
