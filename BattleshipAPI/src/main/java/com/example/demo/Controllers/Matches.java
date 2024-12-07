@@ -58,6 +58,27 @@ public class Matches {
 				.body(match);
     }
     
+    
+    @GetMapping("/getMatchHistoryByPlayer")
+    public ResponseEntity<List<Match>> getMatchHistoryByPlayer(@RequestParam String username) {
+    	List<Match> matches;
+    	String message;
+    	HttpStatus statusCode = HttpStatus.OK;
+    	
+    	try {
+    		matches = matchRepository.findByIsActiveFalseAndP1OrIsActiveFalseAndP2(username, username).get();
+            message = "Match details found";
+    	} catch(Exception ex) {
+    		matches = null;
+    		statusCode = HttpStatus.NOT_FOUND;
+    		message = "Couldn't retrieve match data. More Details: " + ex.getMessage();
+    	}
+    	
+    	return ResponseEntity
+				.status(statusCode)
+				.header("message", message)
+				.body(matches);
+    }
 
     @GetMapping("/getAllMatches")
     public List<Match> getMatches() {

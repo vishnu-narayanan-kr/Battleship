@@ -1,0 +1,235 @@
+h1 {
+    font-size: 48px;
+    color: #0B589C;
+    margin-bottom: 10px;
+}
+
+.turn-info {
+    font-size: 28px;
+    font-weight: bold;
+    color: black;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.boards {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.board {
+    text-align: center;
+}
+
+h2 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.red {
+    color: #E82C3D;
+}
+
+.blue {
+    color: #0B589C; 
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(11, 40px);
+    grid-template-rows: repeat(11, 40px);
+    border: 1px solid #888888;
+}
+
+.corner {
+    background-color: transparent;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border: 1px solid #ccc; /* Adds border to each header cell */
+}
+
+/* Styles for "My Fleet" headers and cells */
+.my-fleet .header {
+    background-color: #AFE1F8; /* Light blue for "My Fleet" */
+}
+
+.enemy-fleet .header {
+    background-color: #FFCCCB; /* Light red for "Enemy Fleet" */
+}
+
+.cell {
+    background-color: #E6F7FF;
+    border: 1px solid #ccc;
+}
+
+.my-fleet .ship {
+    background-image: url("../../GamePage/player-battleship-svgrepo-com.svg");
+    background-size: contain;
+}
+
+.enemy-fleet .ship {
+    background-image: url("../../GamePage/enemy-battleship-ship-svgrepo-com.svg");
+    background-size: contain;
+}
+
+.miss {
+    background-image: url("../../GamePage/cross-svgrepo-com.svg");
+    background-size: contain;
+}
+
+.hit {
+    background-image: url("../../GamePage/fire-svgrepo-com.svg");
+    background-size: contain;
+}
+
+/* Ship cells in "My Fleet" */
+.ship {
+    background-color: #A9A9A9; /* Grey for ships */
+}
+
+.cell-style-1 {
+    background-color: #FFFFFF;
+    border: 1px solid #ccc;
+}
+
+.cell-style-2 {
+    background-color: #E3F5FE;
+    border: 1px solid #ccc;
+}
+
+.cell-style-3 {
+    background-color: #F1F9FE;
+    border: 1px solid #ccc;
+}
+
+/* General table styling */
+.match-history-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    margin: 20px 0;
+    background-color: #f4f4f4;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.match-history-table th, .match-history-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Header styling */
+.match-history-table th {
+    background-color: #004080; /* Navy blue */
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 14px;
+}
+
+/* Alternating row colors */
+.match-history-table tr:nth-child(odd) {
+    background-color: #ffffff; /* White */
+}
+
+.match-history-table tr:nth-child(even) {
+    background-color: #0B589C; /* Navy blue */
+    color: white;
+}
+
+/* Hover effect */
+.match-history-table tr:hover {
+    background-color: #ffa500; /* Orange for hover */
+    cursor: pointer;
+    color: #000; /* Black text on hover */
+}
+
+/* Clickable rows */
+.match-history-table tr {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.match-history-table tr:active {
+    background-color: #ff4500; /* Darker orange for active */
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    .match-history-table th, .match-history-table td {
+        font-size: 12px;
+        padding: 10px;
+    }
+}
+
+
+/* Label styling */
+label {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #004080; /* Navy blue */
+    margin-bottom: 8px;
+    display: inline-block;
+}
+
+/* Input styling */
+input {
+    padding: 10px 15px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+input:focus {
+    border-color: #004080; /* Navy blue */
+    box-shadow: 0 0 5px rgba(0, 64, 128, 0.5);
+}
+
+/* Button styling */
+button {
+    background-color: #004080; /* Navy blue */
+    color: white;
+    font-size: 14px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+    background-color: #00264d; /* Darker navy blue */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+    background-color: #ffa500; /* Orange for active */
+    color: #000; /* Black text on active */
+}
+
+@media (max-width: 600px) {
+    label {
+        font-size: 12px;
+    }
+
+    input {
+        font-size: 12px;
+    }
+
+    button {
+        font-size: 12px;
+        padding: 8px 16px;
+    }
+}
+
