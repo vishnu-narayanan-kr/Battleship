@@ -32,6 +32,8 @@ create table matches(
 
 select * from matches;
 
+delete from matches where is_active = 1;
+
 create table queue(
 	qId int identity(1, 1) primary key,
 	player nvarchar(50) not null,

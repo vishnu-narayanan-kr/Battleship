@@ -43,13 +43,20 @@ public class Queue {
 			}
 			
 			MatchQueue oldQueue = queueRepository.findByUsernameNot(username).getFirst();
+			
+			String currentPlayer = oldQueue.getUsername();
+			
+			if (Math.random() < 0.5) {
+				currentPlayer = username;
+			}
+			
 			Match newMatch = new Match(
 					0,
 					username,
 					oldQueue.getUsername(),
 					Utility.getTimeStamp(),
 					null,
-					username,
+					currentPlayer,
 					grid,
 					oldQueue.getGrid(),
 					true,
