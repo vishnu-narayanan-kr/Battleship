@@ -1,0 +1,134 @@
+.header-style1 {
+    background-color: #AFE1F8 !important; 
+}
+
+.header-style2 {
+    background-color: #F1F9FE !important; 
+}
+
+.header-style3 {
+    background-color: #FCD8C6 !important;
+}
+
+
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('bckgrng.jpg');
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    text-align: center;
+    color: #888888;
+}
+
+h1 {
+    font-size: 48px;
+    color: #0B589C;
+    margin-bottom: 10px;
+}
+
+
+
+.boards {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.board {
+    text-align: center;
+}
+
+h2 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+
+
+.blue {
+    color: #0B589C; 
+}
+
+
+
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(11, 40px);
+    grid-template-rows: repeat(11, 40px);
+    border: 1px solid #888888;
+}
+
+
+
+
+
+
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border: 1px solid #ccc; /* Adds border to each header cell */
+}
+
+
+
+
+
+/* Styles for "My Fleet" headers and cells */
+.my-fleet .header {
+    background-color: #AFE1F8; /* Light blue for "My Fleet" */
+}
+
+
+
+.cell {
+    background-color: #E6F7FF;
+    border: 1px solid #ccc;
+}
+
+
+
+
+.cell-style-1 {
+    background-color: #FFFFFF;
+    border: 1px solid #ccc;
+}
+
+.cell-style-2 {
+    background-color: #E3F5FE;
+    border: 1px solid #ccc;
+}
+
+.cell-style-3 {
+    background-color: #F1F9FE;
+    border: 1px solid #ccc;
+}
+
+
+.logo {
+    text-align: left;
+}
+
+
+
+
+.ship {
+    background-color: #A9A9A9; /* Grey for ships */
+}

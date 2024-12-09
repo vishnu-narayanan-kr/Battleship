@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battleship Landing Page</title>
+    <link rel="stylesheet" href="css/landingPage.css">
+    <script src="js/landingFunctions.js" type="module"></script>
+</head>
+<body>
+    <header>
+        <ul>
+            <li class="profile">
+                <img src="media/userIcon.png"/>
+                <p>Vishnu</p>
+            </li>
+            <li class="settings">
+                <button type="button" onclick="showSettings()"><img src="media/settingsIcon.png"/></button>
+            </li>
+        </ul>
+    </header>
+    <main>
+        <section class="friends">
+            <ul>
+                <li>
+                    <img src="media/userIcon.png" />
+                    <p>Ricardo</p>
+                </li>
+                <li>
+                    <img src="media/userIcon.png" />
+                    <p>Danila</p>
+                </li>
+                <li>
+                    <img src="media/userIcon.png" />
+                    <p>Jay</p>
+                </li>
+                <li>
+                    <img src="media/userIcon.png" />
+                    <p>Marie</p>
+                </li>
+                <li>
+                    <img src="media/userIcon.png" />
+                    <p>Maleshwara</p>
+                </li>
+                <li>
+                    <img src="media/userIcon.png" />
+                    <p>Takashi</p>
+                </li>
+                <li>
+                    <img src="media/userIcon.png" />
+                    <p>Shishir</p>
+                </li>
+            </ul>
+        </section>
+        <section class="play">
+            <h1 class="logo">BATTLESHIP</h1>
+            <p>User ID:</p>
+            <input type="text" id="username"/><br />
+            <button onclick="onPlayOnline()">Play Online</button><br />
+            <button type="button">Play Offline</button>
+        </section>
+    </main>
+    <footer>
+        <button type="button"><img src="media/leaderboardIcon.png"/></button>
+        <button type="button" onclick="location.href = './history.html'"><img src="media/historyIcon.png"/></button>
+    </footer>
+    <div class="settingsPopup" id="settingsPage">
+        <button type="button" onclick="closePopUpsMenus()">X</button>
+        <h1>Settings</h1>
+        <section>
+            <label>Language: </label>
+            <select>
+                <option value="eng">English</option>
+                <option value="fran">French</option>
+            </select>
+        </section>
+        <section>
+            <label>Volume: <input type="range" min="0" max="100" value="50"/></label>
+        </section>
+        <section>
+            <label>Sounds: </label>
+            <select>
+                <option value="real">Realistic</option>
+                <option value="fun">Funny</option>
+                <option value="futur">Futuristic</option>
+            </select>
+        </section>
+    </div>
+</body>
+</html>
